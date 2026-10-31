@@ -115,12 +115,12 @@
     </span>
   </div>
 
-  <p class="kicker"><span lang="en">Notes for the BotQ manufacturing team</span></p>
+  <p class="kicker"><span lang="en">Notes for the Figure supply chain team</span></p>
   <h1>
     <span lang="en">BotQ takt</span>
     <span class="big">60 → 20 min</span>
   </h1>
-  <p class="lead"><span lang="en">BotQ showed it can build a Figure 03 every hour. Filling the 12,000-robot line on two shifts means one every 20 minutes, while Figure 04 comes onto the same floor. Here is where I think that bites first, and how I'd help.</span></p>
+  <p class="lead"><span lang="en">BotQ showed it can build a Figure 03 every hour. Filling the 12,000-robot line on two shifts means one every 20 minutes, while Figure 04 comes onto the same floor. Every part has to be there for both. Here is where I think supply bites first, and how I'd help.</span></p>
   <p class="note"><span lang="en">Built from public information only. Assumptions are labelled.</span></p>
 
   <div class="chart">
@@ -151,37 +151,38 @@
     <p class="sub"><span lang="en">Tap to open. Built from public information; assumptions labelled.</span></p>
     <div class="cards">
       <details class="card">
-        <summary><h3><span lang="en">1. The line gets 3× faster</span></h3><span class="take"><span lang="en">At 20 min and 80% first-pass yield, a robot heads to debug every 100 minutes.</span></span></summary>
+        <summary><h3><span lang="en">1. The Figure 04 cut-in</span></h3><span class="take"><span lang="en">Cut in early and Figure 03 parts sit on the shelf. Cut in late and the line runs short.</span></span></summary>
         <div class="body">
+          <p class="sub"><span lang="en">For a while BotQ builds on two bills of materials. Every Figure 03-only part still on hand or on order at the cut-in week becomes excess, unless its PO can still be cancelled or pushed. Figure 04 also moves parts from CNC to die-casting and injection molding, which means new tooling lead times to plan around.</span></p>
           <div class="stats">
-            <div class="stat"><b>3 / h</b><span><span lang="en">robots off the line at 12,000 a year</span></span></div>
-            <div class="stat"><b>0.6 / h</b><span><span lang="en">robots to debug at 80% first-pass yield</span></span></div>
-            <div class="stat"><b>~2.4</b><span><span lang="en">robots in debug at any time, if one takes 4 h to clear</span></span></div>
+            <div class="stat"><b>$420k</b><span><span lang="en">excess if the cut-in is week 1</span></span></div>
+            <div class="stat"><b>$180k</b><span><span lang="en">excess if the cut-in is week 6</span></span></div>
+            <div class="stat"><b>40 short</b><span><span lang="en">if the cut-in slips to week 10, with the same open POs</span></span></div>
           </div>
-          <p class="src"><span lang="en">Figure reports end-of-line first-pass yield "over 80%", so 80% is the cautious end. The 4 h to clear a robot is my assumption.</span></p>
+          <p class="src"><span lang="en">Example from the model: one Figure 03-only part, 2 per robot, $300 each, 600 on hand, 160 a week on order for 5 weeks, 80 robots a week. Every number is my assumption; the shape of the trade-off is the point.</span></p>
         </div>
       </details>
       <details class="card">
-        <summary><h3><span lang="en">2. Where 20 minutes bites first</span></h3><span class="take"><span lang="en">Test and burn-in, the debug loop, and the Figure 04 cut-in.</span></span></summary>
+        <summary><h3><span lang="en">2. Where 20 minutes bites first</span></h3><span class="take"><span lang="en">3× the parts every week, test and burn-in, and the debug loop.</span></span></summary>
         <div class="body">
           <p class="sub"><span lang="en">The flow as Figure describes BotQ. Highlighted steps are my hypotheses.</span></p>
           <ol class="flow">
             <li><div class="name"><span lang="en">Incoming inspection</span></div></li>
-            <li class="hot"><span class="tag"><span lang="en">Watch</span></span><div class="name"><span lang="en">Module lines: actuators, hands, batteries</span></div><div class="why"><span lang="en">Figure 04 arrives here first. For a while there are two bills of materials on one floor, and Figure 03 parts still on order at the cut-in become excess.</span></div></li>
+            <li class="hot"><span class="tag"><span lang="en">Watch</span></span><div class="name"><span lang="en">Module lines: actuators, hands, batteries</span></div><div class="why"><span lang="en">At 12,000 a year, every module needs 240 sets a week, 3× the 80 a week of one robot an hour. Supplier capacity has to follow the ramp, and Figure 04 likely arrives here first (my hypothesis).</span></div></li>
             <li><div class="name"><span lang="en">Final assembly</span></div></li>
             <li class="hot"><span class="tag"><span lang="en">Watch</span></span><div class="name"><span lang="en">End-of-line tests and burn-in</span></div><div class="why"><span lang="en">80+ tests and thousands of burn-in cycles don't get shorter when takt does: stations = test time ÷ takt. If burn-in takes 2 h (my assumption), that's 2 stations at 60 min, but 6 at 20.</span></div></li>
-            <li class="hot"><span class="tag"><span lang="en">Watch</span></span><div class="name"><span lang="en">Debug and rework</span></div><div class="why"><span lang="en">At 80%, 1 robot in 5 leaves the line to be fixed and retested. A new robot usually starts at a lower yield, so the debug area has to be sized for the cut-in, not for steady state.</span></div></li>
+            <li class="hot"><span class="tag"><span lang="en">Watch</span></span><div class="name"><span lang="en">Debug and rework</span></div><div class="why"><span lang="en">At 80% first-pass yield, 1 robot in 5 leaves the line to be fixed and retested, and fixes consume spare parts. A new robot usually starts at a lower yield, so spares and debug space have to be planned for the cut-in, not for steady state.</span></div></li>
             <li><div class="name"><span lang="en">Ship to the fleet</span></div></li>
           </ol>
         </div>
       </details>
       <details class="card">
-        <summary><h3><span lang="en">3. A model you can run on your numbers</span></h3><span class="take"><span lang="en">Takt, test stations, debug load and Figure 03 stock at cut-in.</span></span></summary>
+        <summary><h3><span lang="en">3. A model you can run on your numbers</span></h3><span class="take"><span lang="en">Figure 03 stock at every cut-in week, takt, test stations and debug load.</span></span></summary>
         <div class="body">
           <ol class="flow list">
+            <li><div class="name"><span lang="en">Cut-in</span></div><div class="why"><span lang="en">How much Figure 03 stock is left for every possible cut-in week, and when you run short instead.</span></div></li>
             <li><div class="name"><span lang="en">Takt</span></div><div class="why"><span lang="en">Pace per robot at each ramp step, and what a third shift changes.</span></div></li>
             <li><div class="name"><span lang="en">Test &amp; rework</span></div><div class="why"><span lang="en">Burn-in and test stations, and how many robots sit in debug, at each takt and during a cut-in.</span></div></li>
-            <li><div class="name"><span lang="en">Cut-in</span></div><div class="why"><span lang="en">How much Figure 03 stock is left for every possible cut-in week, and when you run short instead.</span></div></li>
           </ol>
           <p class="src" style="margin-bottom:14px"><span lang="en">Blue cells are inputs; yellow cells are my assumptions, to replace with real data. Quantities are examples.</span></p>
           <div class="btns"><a class="btn primary" href="BotQ_Ramp_Model_Tristan_Massicotte.xlsx"><span lang="en">Download the model (Excel)</span></a></div>
@@ -192,16 +193,16 @@
 
   <!-- PLAN + ASK -->
   <section>
-    <h2><span lang="en">My 16 weeks on the line</span></h2>
+    <h2><span lang="en">My 16 weeks</span></h2>
     <ol class="plan">
-      <li><span class="wk"><span lang="en">Wk 1–2</span></span><span class="what"><b><span lang="en">Work the line.</span></b> <span lang="en">A shift at each station, from the module lines to end of line; time-study real cycles and log every end-of-line failure to set a baseline.</span></span></li>
-      <li><span class="wk"><span lang="en">Wk 3–6</span></span><span class="what"><b><span lang="en">Own the debug loop.</span></b> <span lang="en">Follow every failed robot from fail to pass, build the failure Pareto with quality, and run a daily report of robots in debug and time to clear.</span></span></li>
-      <li><span class="wk"><span lang="en">Wk 7–11</span></span><span class="what"><b><span lang="en">Plan one module through the cut-in.</span></b> <span lang="en">Clear-to-build on both bills of materials, Figure 03 run-out, and test stations at the new takt, worked out with the planners and line leads.</span></span></li>
-      <li><span class="wk"><span lang="en">Wk 12–16</span></span><span class="what"><b><span lang="en">Run it and prove it.</span></b> <span lang="en">Support the change on the floor, measure output, yield and debug load against the week-2 baseline, fix what breaks, then take on a second module.</span></span></li>
+      <li><span class="wk"><span lang="en">Wk 1–2</span></span><span class="what"><b><span lang="en">Learn the parts and the floor.</span></b> <span lang="en">Shadow the GSMs, work a shift on the line, and map one module (actuators, for example) from supplier to station.</span></span></li>
+      <li><span class="wk"><span lang="en">Wk 3–6</span></span><span class="what"><b><span lang="en">Own clear-to-build for that module.</span></b> <span lang="en">On hand, on order and short for both bills of materials, by build; a daily shortage list with recovery dates.</span></span></li>
+      <li><span class="wk"><span lang="en">Wk 7–11</span></span><span class="what"><b><span lang="en">Plan the Figure 03 run-out.</span></b> <span lang="en">Cut-in week options, open POs still inside cancellation windows, excess in dollars, and supplier capacity against the ramp, worked out with the GSMs and planners.</span></span></li>
+      <li><span class="wk"><span lang="en">Wk 12–16</span></span><span class="what"><b><span lang="en">Run it and prove it.</span></b> <span lang="en">Support the cut-in builds, track shortages and excess against the plan, fix what breaks, then take on a second module.</span></span></li>
     </ol>
     <div class="ask">
       <b><span lang="en">My ask:</span></b>
-      <span lang="en">a four-month summer 2027 internship in production control or planning, on the BotQ floor in San Jose. I'd come on a J-1 intern visa; I handle the paperwork, Figure signs a training plan.</span>
+      <span lang="en">a four-month summer 2027 internship in supply planning for the Figure 04 ramp, in San Jose, with time on the BotQ floor. I'd come on a J-1 intern visa; I handle the paperwork, Figure signs a training plan.</span>
     </div>
   </section>
 
